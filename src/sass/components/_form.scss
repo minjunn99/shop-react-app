@@ -1,0 +1,42 @@
+.form {
+    --flow-spacer: 1.25rem;
+    width: min(100% - 2rem, var(--form-width, 20rem));
+
+    &-heading {
+        font-family: var(--ff-secondary);
+        font-size: var(--fs-500);
+        font-weight: var(--fw-semibold);
+    }
+
+    &-input {
+        width: 100%;
+        background: var(--clr-neutral-100);
+        padding: 1rem 1.25rem;
+        font-weight: var(--fw-medium);
+        border: thin solid var(--clr-neutral-100);
+        border-radius: 0.25rem;
+
+        &::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: var(--clr-neutral-300);
+            font-weight: var(--fw-medium);
+            opacity: 1; /* Firefox */
+        }
+
+        &:-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: var(--clr-neutral-300);
+            font-weight: var(--fw-medium);
+        }
+
+        &::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: var(--clr-neutral-300);
+            font-weight: var(--fw-medium);
+        }
+    }
+
+    &-link {
+        color: var(--clr-neutral-500);
+    }
+}
