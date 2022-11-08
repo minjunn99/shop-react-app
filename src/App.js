@@ -8,7 +8,18 @@ import "./sass/styles.scss";
 // Import component
 import { ShopProvider } from "./contexts/ShopContext";
 import { AuthRoutes, PrivateRoutes } from "./routes";
-import { Welcome, Signin, Signup, Home } from "./pages";
+import { Wrapper } from "./components";
+import {
+    Welcome,
+    Signin,
+    Signup,
+    Home,
+    Shop,
+    Cart,
+    ProductDetail,
+    Profile,
+    EditProfile,
+} from "./pages";
 
 function App() {
     return (
@@ -21,7 +32,20 @@ function App() {
                         <Route path="/signup" element={<Signup />} />
                     </Route>
                     <Route element={<PrivateRoutes />}>
-                        <Route path="/" element={<Home />} />
+                        <Route element={<Wrapper />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/shop" element={<Shop />} />
+                            <Route path="/cart" element={<Cart />} />
+                            <Route
+                                path="/products/:productId"
+                                element={<ProductDetail />}
+                            />
+                            <Route path="/profile" element={<Profile />} />
+                            <Route
+                                path="/profile/edit"
+                                element={<EditProfile />}
+                            />
+                        </Route>
                     </Route>
                 </Routes>
             </ShopProvider>

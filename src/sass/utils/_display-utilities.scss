@@ -3,6 +3,20 @@
     gap: var(--gap, 1rem);
 }
 
+.direction {
+    &-column {
+        flex-direction: column;
+    }
+
+    &-column-reverse {
+        flex-direction: column-reverse;
+    }
+
+    &-row-reverse {
+        flex-direction: row-reverse;
+    }
+}
+
 .d-inline-flex {
     display: inline-flex;
     gap: var(--gap, 1rem);
