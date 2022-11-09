@@ -9,7 +9,7 @@ const Wrapper = () => {
     return (
         <main className="wrapper">
             <Sidebar />
-            <section>
+            <section className="section">
                 <Outlet />
             </section>
         </main>

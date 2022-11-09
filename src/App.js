@@ -16,6 +16,7 @@ import {
     Home,
     Shop,
     Cart,
+    Category,
     ProductDetail,
     Profile,
     EditProfile,
@@ -36,6 +37,10 @@ function App() {
                             <Route path="/" element={<Home />} />
                             <Route path="/shop" element={<Shop />} />
                             <Route path="/cart" element={<Cart />} />
+                            <Route
+                                path="/category/:slug"
+                                element={<Category />}
+                            />
                             <Route
                                 path="/products/:productId"
                                 element={<ProductDetail />}
