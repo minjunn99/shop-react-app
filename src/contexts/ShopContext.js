@@ -6,9 +6,10 @@ import {
     signOut,
     onAuthStateChanged,
 } from "firebase/auth";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
 
 // Import components
-import { auth } from "../config/firebase";
+import { auth, db } from "../config/firebase";
 
 // Create context
 const ShopContext = React.createContext();
@@ -23,6 +24,7 @@ export const ShopProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState();
 
+    // UseEffect
     useEffect(() => {
         const unsubcribe = onAuthStateChanged(auth, async (user) => {
             setCurrentUser(user);
@@ -34,6 +36,7 @@ export const ShopProvider = ({ children }) => {
         };
     }, []);
 
+    // Method
     function signup(email, password) {
         return createUserWithEmailAndPassword(auth, email, password);
     }
@@ -46,11 +49,23 @@ export const ShopProvider = ({ children }) => {
         return signOut(auth);
     }
 
+    function all(collectionName) {
+        return getDocs(collection(db, collectionName));
+    }
+
+    function find(collectionName, collectionId) {
+        const docRef = doc(db, collectionName, collectionId);
+        return getDoc(docRef);
+    }
+
+    // Props
     const value = {
         currentUser,
         signup,
         signin,
         signout,
+        all,
+        find,
     };
 
     return (

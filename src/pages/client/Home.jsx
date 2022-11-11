@@ -61,6 +61,11 @@ const Home = () => {
                         <Link
                             to={`/category/${category.slug}`}
                             className="d-flex justify-center items-center direction-column"
+                            style={{
+                                backgroundColor: "#fff",
+                                paddingBlock: "0.5rem",
+                                borderRadius: "0.5em",
+                            }}
                             key={index}
                         >
                             <img

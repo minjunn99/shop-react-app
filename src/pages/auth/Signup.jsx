@@ -13,7 +13,7 @@ import {
     passwordRegex,
     phoneNumberRegex,
 } from "../../utils/validation";
-import dateFormat from "../../utils/dateFormat";
+import { dateFormat } from "../../utils/format";
 
 const Signup = () => {
     // Use value of ShopProvider

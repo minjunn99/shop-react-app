@@ -1,5 +1,5 @@
 .d-flex {
-    display: flex;
+    display: flex !important;
     gap: var(--gap, 1rem);
 }
 
@@ -18,12 +18,12 @@
 }
 
 .d-inline-flex {
-    display: inline-flex;
+    display: inline-flex !important;
     gap: var(--gap, 1rem);
 }
 
 .d-grid {
-    display: grid;
+    display: grid !important;
     gap: var(--gap, 1rem);
 }
 

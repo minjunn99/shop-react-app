@@ -44,7 +44,7 @@ function getMonthName(month) {
     return name;
 }
 
-export default function dateFormat(timestamp) {
+export function dateFormat(timestamp) {
     const date = new Date(+timestamp);
 
     const day = date.getUTCDate();
@@ -54,4 +54,12 @@ export default function dateFormat(timestamp) {
     const formatDate = `${month} ${day}, ${year}`;
 
     return formatDate;
+}
+
+export function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+export function trimLetter(string) {
+    return string.trim();
 }
