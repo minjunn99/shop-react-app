@@ -37,7 +37,6 @@ const ProductDetail = () => {
             // Store product data from API
             const qSnapshot = await find("products", productId);
             const data = { ...qSnapshot.data() };
-            console.log(data);
 
             // Set data value in products state
             setProduct(data);
@@ -58,6 +57,22 @@ const ProductDetail = () => {
         }
 
         setSkuId(id + 1);
+    };
+
+    const handleAmount = (option) => {
+        switch (option?.type) {
+            case "increase":
+                setAmount((prev) => prev + 1);
+                break;
+            case "decrease":
+                if (amount === 1) {
+                    return;
+                }
+                setAmount((prev) => prev - 1);
+                break;
+            default:
+                return;
+        }
     };
 
     // If haven't product -> render loading
@@ -126,7 +141,12 @@ const ProductDetail = () => {
                         style={{ gap: "0.5rem" }}
                     >
                         <div className="product-info-amount d-flex items-center">
-                            <span className="material-symbols-rounded">
+                            <span
+                                className="material-symbols-rounded"
+                                onClick={() =>
+                                    handleAmount({ type: "decrease" })
+                                }
+                            >
                                 remove
                             </span>
                             <input
@@ -134,7 +154,12 @@ const ProductDetail = () => {
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                             />
-                            <span className="material-symbols-rounded">
+                            <span
+                                className="material-symbols-rounded"
+                                onClick={() =>
+                                    handleAmount({ type: "increase" })
+                                }
+                            >
                                 add
                             </span>
                         </div>
@@ -203,7 +228,10 @@ const ProductDetail = () => {
                             {product.detail.map((info, index) => {
                                 const objKey = Object.keys(info);
                                 return (
-                                    <p className="product-detail-item d-flex">
+                                    <p
+                                        key={index}
+                                        className="product-detail-item d-flex"
+                                    >
                                         <span
                                             style={{
                                                 width: "12rem",
