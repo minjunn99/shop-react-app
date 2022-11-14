@@ -75,6 +75,14 @@ const ProductDetail = () => {
         }
     };
 
+    const handleAddtoCart = () => {
+        console.log("Hello");
+    };
+
+    const handleOrder = () => {
+        console.log("Hello");
+    };
+
     // If haven't product -> render loading
     if (!product) {
         return <Loading />;
@@ -176,6 +184,7 @@ const ProductDetail = () => {
                             className="button d-inline-flex items-center fs-200"
                             button-variant="outlined"
                             button-color="primary"
+                            onClick={handleAddtoCart}
                         >
                             <span className="material-symbols-rounded">
                                 add_shopping_cart
@@ -186,6 +195,7 @@ const ProductDetail = () => {
                             className="button fs-200"
                             button-variant="contained"
                             button-color="primary"
+                            onClick={handleOrder}
                         >
                             mua ngay
                         </button>

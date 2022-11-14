@@ -6,7 +6,14 @@ import {
     signOut,
     onAuthStateChanged,
 } from "firebase/auth";
-import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import {
+    collection,
+    getDocs,
+    getDoc,
+    doc,
+    updateDoc,
+    addDoc,
+} from "firebase/firestore";
 
 // Import components
 import { auth, db } from "../config/firebase";
@@ -58,6 +65,20 @@ export const ShopProvider = ({ children }) => {
         return getDoc(docRef);
     }
 
+    function create(collectionName, collectionData) {
+        const docRef = collection(db, collectionName);
+        return addDoc(docRef, {
+            ...collectionData,
+        });
+    }
+
+    function update(collectionName, collectionId, collectionData) {
+        const docRef = doc(db, collectionName, collectionId);
+        return updateDoc(docRef, {
+            ...collectionData,
+        });
+    }
+
     // Props
     const value = {
         currentUser,
@@ -66,6 +87,8 @@ export const ShopProvider = ({ children }) => {
         signout,
         all,
         find,
+        create,
+        update,
     };
 
     return (

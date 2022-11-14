@@ -17,7 +17,7 @@ import { dateFormat } from "../../utils/format";
 
 const Signup = () => {
     // Use value of ShopProvider
-    const { signup } = useShop();
+    const { signup, create } = useShop();
 
     // State variable
     const [error, setError] = useState("");
@@ -84,8 +84,17 @@ const Signup = () => {
                 passwordRef.current.value
             );
             const { uid } = res.user;
+
+            // Save user info to firestore
             await setDoc(doc(db, "users", uid), {
                 ...userObj,
+            });
+
+            // Create user cart collection
+            await create("cart", {
+                uid: uid,
+                products: [],
+                total: 0,
             });
         } catch (error) {
             console.log(error);
