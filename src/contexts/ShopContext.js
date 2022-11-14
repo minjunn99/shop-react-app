@@ -13,6 +13,8 @@ import {
     doc,
     updateDoc,
     addDoc,
+    where,
+    query,
 } from "firebase/firestore";
 
 // Import components
@@ -65,6 +67,14 @@ export const ShopProvider = ({ children }) => {
         return getDoc(docRef);
     }
 
+    function findWithCondition(collectionName, { field, condition, data }) {
+        const q = query(
+            collection(db, collectionName),
+            where(field, condition, data)
+        );
+        return getDocs(q);
+    }
+
     function create(collectionName, collectionData) {
         const docRef = collection(db, collectionName);
         return addDoc(docRef, {
@@ -87,6 +97,7 @@ export const ShopProvider = ({ children }) => {
         signout,
         all,
         find,
+        findWithCondition,
         create,
         update,
     };

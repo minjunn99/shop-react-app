@@ -1,6 +1,6 @@
 // Import library
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,27 +23,48 @@ const ProductDetail = () => {
     const { productId } = useParams();
 
     // Method context
-    const { find } = useShop();
+    const { currentUser, find, findWithCondition, update } = useShop();
 
     // Product states
     const [product, setProduct] = useState();
+    const [cart, setCart] = useState();
     const [skuId, setSkuId] = useState(0);
     const [amount, setAmount] = useState(1);
     const [tabItem, setTabItem] = useState("detail");
 
+    const navigate = useNavigate();
+
     // UseEffect
     useEffect(() => {
         const getProduct = async () => {
-            // Store product data from API
+            // Get product data from API
             const qSnapshot = await find("products", productId);
             const data = { ...qSnapshot.data() };
 
             // Set data value in products state
             setProduct(data);
         };
-
         getProduct();
     }, [find, productId]);
+
+    useEffect(() => {
+        // Get cart collection in firestore
+        const getCart = async () => {
+            let data = [];
+            const qSnapshot = await findWithCondition("cart", {
+                field: "uid",
+                condition: "==",
+                data: currentUser.uid,
+            });
+            qSnapshot.forEach((doc) => {
+                data.push({ id: doc.id, data: { ...doc.data() } });
+            });
+
+            setCart(data[0]);
+        };
+
+        getCart();
+    }, [findWithCondition, currentUser]);
 
     // Method event
     const handleSkuClick = (e, id) => {
@@ -75,12 +96,50 @@ const ProductDetail = () => {
         }
     };
 
-    const handleAddtoCart = () => {
-        console.log("Hello");
+    const updateDataCart = async () => {
+        // Get data product
+        const { name, photos, cost, skus } = product;
+        const quantity = amount;
+
+        // Create product item object in cart collection
+        const cartItem = {
+            id: productId,
+            name,
+            photoURL: photos[0],
+            sku: {
+                color: skus[skuId - 1].color,
+                quantity,
+            },
+            cost,
+        };
+
+        // Update total cost in cart
+        const cartItems = [...cart.data.products, cartItem];
+        const total = cartItems.reduce(
+            (prev, item) =>
+                prev + parseInt(item.cost.slice(0, -4)) * item.sku.quantity,
+            0
+        );
+        await update("cart", cart.id, { products: cartItems, total });
+        // Set cart state
+        cart.data.products = [...cartItems];
+        setCart({ ...cart });
     };
 
-    const handleOrder = () => {
-        console.log("Hello");
+    const handleAddtoCart = () => {
+        const cartItems = cart.data.products;
+        if (cartItems.filter((e) => e.id === productId).length === 0) {
+            updateDataCart();
+        }
+    };
+
+    const handleOrder = async () => {
+        const cartItems = cart.data.products;
+        if (cartItems.filter((e) => e.id === productId).length === 0) {
+            await updateDataCart();
+        }
+
+        navigate("/cart");
     };
 
     // If haven't product -> render loading
