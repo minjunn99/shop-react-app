@@ -81,6 +81,19 @@ const Profile = () => {
                         readOnly
                     />
                 </div>
+                <div className="form-group">
+                    <label className="form-label" htmlFor="phoneNumber">
+                        Số điện thoại
+                    </label>
+                    <input
+                        type="text"
+                        id="phoneNumber"
+                        value={user.phoneNumber}
+                        placeholder="Số điện thoại"
+                        className="form-input"
+                        readOnly
+                    />
+                </div>
                 <Link
                     to={`/profile/edit/${currentUser.uid}`}
                     className="button"

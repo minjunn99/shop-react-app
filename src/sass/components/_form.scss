@@ -10,12 +10,31 @@
     }
 
     &-photo {
+        position: relative;
         width: min(100% - 2rem, 10.5rem);
         margin-inline: auto;
         aspect-ratio: 1;
+        border-radius: 50%;
+        overflow: hidden;
 
-        img {
-            border-radius: 50%;
+        &-icon {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background-color: rgba(#000000, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 1;
+            }
+
+            span {
+                color: var(--clr-neutral-100);
+            }
         }
     }
 
@@ -56,5 +75,12 @@
 
     &-link {
         color: var(--clr-neutral-500);
+    }
+
+    &-button {
+        &[data-visible="false"] {
+            pointer-events: none;
+            opacity: 0.7;
+        }
     }
 }
