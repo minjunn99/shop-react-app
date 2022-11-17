@@ -68,6 +68,7 @@ const Shop = () => {
 
     return (
         <div className="shop flow">
+            <div className="section-heading">Cửa hàng</div>
             {/* Search input */}
             <div className="shop-search">
                 <div className="shop-search-input form-group">

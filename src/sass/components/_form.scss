@@ -1,11 +1,29 @@
 .form {
     --flow-spacer: 1.25rem;
     width: min(100% - 2rem, var(--form-width, 20rem));
+    margin-inline: auto;
 
     &-heading {
         font-family: var(--ff-secondary);
         font-size: var(--fs-500);
         font-weight: var(--fw-semibold);
+    }
+
+    &-photo {
+        width: min(100% - 2rem, 10.5rem);
+        margin-inline: auto;
+        aspect-ratio: 1;
+
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    &-label {
+        display: inline-block;
+        font-weight: var(--fw-semibold);
+        text-transform: capitalize;
+        margin-bottom: 0.5rem;
     }
 
     &-input {

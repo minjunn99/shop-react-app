@@ -98,7 +98,7 @@ const Cart = () => {
     return (
         <div className="cart h-full d-flex direction-column">
             <div className="d-flex justify-between items-center">
-                <div className="fs-500 text-capitalize">Giỏ hàng</div>
+                <div className="section-heading">Giỏ hàng</div>
                 <p className="text-neutral-300 fw-medium">
                     {cart.data.products.length} mặt hàng
                 </p>
