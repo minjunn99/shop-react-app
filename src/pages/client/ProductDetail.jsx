@@ -309,9 +309,9 @@ const ProductDetail = () => {
                                             className="fw-semibold"
                                         >
                                             {`${capitalizeFirstLetter(
-                                                labelDetail[product.category][
-                                                    index
-                                                ]
+                                                labelDetail[
+                                                    product.categoryDetail
+                                                ][index]
                                             )}`}
                                         </span>
                                         <span className="fw-medium">

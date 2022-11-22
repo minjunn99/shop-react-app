@@ -186,13 +186,14 @@ const Cart = () => {
                         >
                             tiếp tục mua hàng
                         </Link>
-                        <button
+                        <Link
+                            to="/order"
                             className="button"
                             button-variant="contained"
                             button-color="primary"
                         >
                             mua ngay
-                        </button>
+                        </Link>
                     </div>
                 </div>
             ) : (

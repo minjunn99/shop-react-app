@@ -24,7 +24,7 @@ const Shop = () => {
         }
 
         const dataFilter = products.filter(
-            (product) => product.category === filter
+            (product) => product.categoryDetail === filter
         );
 
         return dataFilter;

@@ -20,6 +20,7 @@ import {
     ProductDetail,
     Profile,
     EditProfile,
+    Order,
 } from "./pages";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                                 path="/profile/edit/:userId"
                                 element={<EditProfile />}
                             />
+                            <Route path="/order" element={<Order />} />
                         </Route>
                     </Route>
                 </Routes>
