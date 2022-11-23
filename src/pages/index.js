@@ -11,3 +11,4 @@ export { default as Profile } from "./client/Profile/Profile";
 export { default as EditProfile } from "./client/Profile/EditProfile";
 
 export { default as Order } from "./client/Order/Order";
+export { default as OrderSuccess } from "./client/Order/OrderSuccess";

@@ -1,9 +1,10 @@
 // Import library
 import React from "react";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 // Import components
 
-const PayOrder = ({ cartItems }) => {
+const PayOrder = ({ cartItems, onPayment }) => {
     return (
         <>
             <div className="fs-400 fw-semibold text-center">
@@ -12,8 +13,8 @@ const PayOrder = ({ cartItems }) => {
             {/* Danh sách sản phẩm đặt mua */}
             <div className="d-grid">
                 <div className="fw-semibold">Danh sách sản phẩm</div>
-                {cartItems.map((cartItem) => (
-                    <div className="d-flex items-center">
+                {cartItems.map((cartItem, index) => (
+                    <div className="d-flex items-center" key={index}>
                         <img
                             style={{
                                 width: "5rem",
@@ -48,6 +49,43 @@ const PayOrder = ({ cartItems }) => {
             {/* Thanh toán */}
             <div className="d-grid">
                 <div className="fw-semibold">Hình thức thanh toán</div>
+                <PayPalButtons
+                    style={{ layout: "vertical" }}
+                    fundingSource="paypal"
+                    createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [
+                                {
+                                    amount: {
+                                        value: `${(
+                                            cartItems.reduce(
+                                                (prev, curr) =>
+                                                    prev +
+                                                    curr.sku.quantity *
+                                                        parseInt(
+                                                            curr.cost.slice(
+                                                                0,
+                                                                -4
+                                                            )
+                                                        ),
+                                                0
+                                            ) * 0.0000402455
+                                        ).toFixed(2)}`,
+                                    },
+                                },
+                            ],
+                        });
+                    }}
+                    onApprove={(data, actions) => {
+                        return actions.order.capture().then(function (details) {
+                            console.log(
+                                "Transaction completed by",
+                                details.payer.name.given_name
+                            );
+                            onPayment();
+                        });
+                    }}
+                />
             </div>
         </>
     );
