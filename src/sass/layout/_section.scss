@@ -2,7 +2,7 @@
 
 .section {
     padding: 1rem;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     @include mq(medium) {
         padding: 2rem;
