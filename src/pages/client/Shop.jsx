@@ -1,5 +1,5 @@
 // Import library
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // Import components
 import { Loading, ProductCard } from "../../components";
@@ -15,20 +15,8 @@ const Shop = () => {
 
     // Product states
     const [products, setProducts] = useState();
-    const [filter, setFilter] = useState("all");
-
-    // Store product filter
-    const productsFilter = useMemo(() => {
-        if (filter === "all") {
-            return products;
-        }
-
-        const dataFilter = products.filter(
-            (product) => product.categoryDetail === filter
-        );
-
-        return dataFilter;
-    }, [products, filter]);
+    const [productsFilter, setProductsFilter] = useState();
+    const [filter, setFilter] = useState({ type: "category", q: "all" });
 
     // UseEffect
     useEffect(() => {
@@ -47,18 +35,56 @@ const Shop = () => {
 
             // Set data value in products state
             setProducts(data);
+            setProductsFilter(data);
         };
 
         getProducts();
     }, [all]);
 
+    useEffect(() => {
+        const { type, q } = filter;
+
+        switch (type) {
+            case "category":
+                if (q === "all") {
+                    setProductsFilter(products);
+                    break;
+                }
+                const dataFilter = products.filter(
+                    (product) => product.categoryDetail === q
+                );
+                setProductsFilter(dataFilter);
+                break;
+            case "search":
+                const dataSearch = products.filter(
+                    (product) =>
+                        product.name.toLowerCase().includes(q.toLowerCase()) ||
+                        product.description
+                            .toLowerCase()
+                            .includes(q.toLowerCase()) ||
+                        product.categoryDetail
+                            .toLowerCase()
+                            .includes(q.toLowerCase())
+                );
+                setProductsFilter(dataSearch);
+                break;
+            default:
+                break;
+        }
+    }, [products, filter]);
+
     // Method event
     const handleCategoryClick = (slug) => {
-        setFilter(slug);
+        setFilter({ type: "category", q: slug });
     };
 
     const handleSearchClick = (search) => {
-        console.log(search);
+        if (search.length !== 0) {
+            setFilter({ type: "search", q: search });
+        } else {
+            setFilter({ type: "search", q: "" });
+        }
+        searchRef.current.focus();
     };
 
     // If haven't products -> render loading
@@ -91,7 +117,7 @@ const Shop = () => {
                 <div
                     className="shop-categories-item"
                     style={{ height: "100%" }}
-                    data-visible={filter === "all"}
+                    data-visible={filter.q === "all"}
                     onClick={() => handleCategoryClick("all")}
                 >
                     <p className="fs-200 text-neutral-500 fw-medium text-capitalize">
@@ -102,7 +128,7 @@ const Shop = () => {
                     <div
                         key={index}
                         className="shop-categories-item d-flex items-center"
-                        data-visible={filter === category.label}
+                        data-visible={filter.q === category.label}
                         onClick={() => handleCategoryClick(category.label)}
                     >
                         <img
