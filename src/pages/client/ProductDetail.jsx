@@ -28,6 +28,7 @@ const ProductDetail = () => {
     // Product states
     const [product, setProduct] = useState();
     const [cart, setCart] = useState();
+    const [error, setError] = useState("");
     const [skuId, setSkuId] = useState(0);
     const [amount, setAmount] = useState(1);
     const [tabItem, setTabItem] = useState("detail");
@@ -127,6 +128,11 @@ const ProductDetail = () => {
     };
 
     const handleAddtoCart = () => {
+        if (!skuId) {
+            setError("Bạn chưa chọn loại sản phẩm!");
+            return;
+        }
+
         const cartItems = cart.data.products;
         if (cartItems.filter((e) => e.id === productId).length === 0) {
             updateDataCart();
@@ -134,6 +140,11 @@ const ProductDetail = () => {
     };
 
     const handleOrder = async () => {
+        if (!skuId) {
+            setError("Bạn chưa chọn loại sản phẩm!");
+            return;
+        }
+
         const cartItems = cart.data.products;
         if (cartItems.filter((e) => e.id === productId).length === 0) {
             await updateDataCart();
@@ -236,6 +247,18 @@ const ProductDetail = () => {
                                 : product.skus[skuId - 1].quantity}{" "}
                             sản phẩm có sẵn
                         </p>
+                    </div>
+                    <div>
+                        {error && (
+                            <p
+                                className="fs-200 fw-semibold"
+                                style={{
+                                    color: "#ff3333",
+                                }}
+                            >
+                                {error}
+                            </p>
+                        )}
                     </div>
                     <div className="product-info-action d-flex">
                         <button
