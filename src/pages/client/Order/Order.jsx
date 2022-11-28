@@ -1,6 +1,7 @@
 // Import library
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { serverTimestamp } from "firebase/firestore";
 
 // Import components
 import { useShop } from "../../../contexts/ShopContext";
@@ -60,6 +61,7 @@ const Order = () => {
             uid: currentUser.uid,
             ...data,
             products: [...cartItems],
+            createdAt: serverTimestamp(),
             totalCost: cartItems.reduce(
                 (prev, curr) =>
                     prev + curr.sku.quantity * parseInt(curr.cost.slice(0, -4)),
