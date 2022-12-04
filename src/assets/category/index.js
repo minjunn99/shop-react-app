@@ -12,10 +12,10 @@ const categories = [
     { url: laptop, label: "laptop", slug: "laptop" },
     { url: tablet, label: "tablet", slug: "tablet" },
     { url: dongho, label: "đồng hồ", slug: "dongho" },
-    { url: sacduphong, label: "sạc dự phòng", slug: "phukien" },
-    { url: tainghe, label: "tai nghe", slug: "phukien" },
-    { url: banphim, label: "bàn phím", slug: "phukien" },
-    { url: chuotmaytinh, label: "chuột máy tính", slug: "phukien" },
+    { url: sacduphong, label: "sạc dự phòng", slug: "sacduphong" },
+    { url: tainghe, label: "tai nghe", slug: "tainghe" },
+    { url: banphim, label: "bàn phím", slug: "banphim" },
+    { url: chuotmaytinh, label: "chuột máy tính", slug: "chuotmaytinh" },
 ];
 
 export default categories;
